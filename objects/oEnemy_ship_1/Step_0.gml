@@ -19,22 +19,6 @@ if mode = "patrol"
 		}
 	}
 	
-		/*
-		start_x = path_position.x
-		start_y = path_position.y
-		*/
-	
-	/*
-	var nearpath = instance_nearest(x,y,oEnemy_path)
-	if !place_meeting(x,y,nearpath)
-	{
-		var pathX = nearpath.x
-		var pathY = nearpath.y
-	
-		dir = point_direction(x,y,pathX,pathY)
-	}
-	*/
-	
 }
 #endregion
 
@@ -66,14 +50,7 @@ if mode = "idle"
 if mode = "wander"
 {
 	counter += 1
-	/*
-	if ceil(random(100)) = true
-	{
-		dir = random(360)
-	}
-	direction = dir
-	*/
-	
+
 	//transition triggers
 	if (counter >= room_speed * 3)
 	{
@@ -129,7 +106,6 @@ if mode = "chase"
 }
 #endregion
 
-
 #region //shooting
 if mode = "shoot"
 {
@@ -162,7 +138,28 @@ if mode = "shoot"
 	}
 }
 #endregion
+/*
+//Avoiding other enemy objects
+if collision_circle(x,y,100,oEnemy,0,1)
+{
+	mode = "collision avoidance"
+}
+else
+{
+	mode = "wander"
+}
 
+
+if mode = "collision avoidance"
+{
+	if collision_circle(x,y,100,oEnemy,0,1)
+	{
+		dir = point_direction(other.x,other.y,x,y)
+		x += lengthdir_x(spd,dir)
+		y += lengthdir_y(spd,dir)
+	}
+}
+*/
 #region //image direction
 image_angle = 0 
 

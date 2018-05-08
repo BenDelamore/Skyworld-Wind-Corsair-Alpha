@@ -1,5 +1,4 @@
 /// @description Insert description here
-// You can write your code in this editor
 
 #region //play music if enemy exists
 if instance_exists(oEnemy)
@@ -14,15 +13,6 @@ if instance_exists(oEnemy)
 		}
 		audio_sound_gain(mus_1_Pollution,1,1000)
 	}
-
-/*	else
-	{
-		audio_sound_gain(mus_1_Pollution,0,1000)
-		//audio_play_sound(mus_2_TimeToRunFinale,1000,true)
-		audio_sound_gain(mus_2_TimeToRunFinale,0,0)
-		audio_sound_gain(mus_2_TimeToRunFinale,1,1000)
-	}
-*/
 
 	if oEnemy.detection = 0
 	{
