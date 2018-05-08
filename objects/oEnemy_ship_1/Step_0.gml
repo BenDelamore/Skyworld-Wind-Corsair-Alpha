@@ -1,3 +1,4 @@
+/// @description ALL THE CODE!!
 
 #region //Path Following
 if mode = "patrol"
@@ -37,21 +38,63 @@ if mode = "patrol"
 }
 #endregion
 
+#region
+if mode = "idle"
+{
+	counter += 1
+	
+	move_wander = 0
+	if (counter >= room_speed * 3)
+	{
+		var change = choose(0,1);
+		switch(change)
+		{
+			case 0: 
+				counter = 0
+				break;
+			case 1:
+				mode = "wander";
+				counter = 0
+				break;
+			break;
+		}
+	}
+}
+#endregion
+
 #region //Wander
 if mode = "wander"
 {
-	
+	counter += 1
+	/*
 	if ceil(random(100)) = true
 	{
 		dir = random(360)
 	}
-	
 	direction = dir
-
-	x = lengthdir_x(spd,dir)
-	y = lengthdir_y(spd,dir)
-
-	//speed = 2
+	*/
+	
+	//transition triggers
+	if (counter >= room_speed * 3)
+	{
+		var change = choose(0,1);
+		switch(change)
+		{
+			case 0: 
+				mode = "idle";
+				break;
+			case 1:
+				move_wander = 1
+				dir = irandom_range(0,359);
+				counter = 0;
+			break;
+		}
+	}
+	if move_wander = 1
+	{
+		x += lengthdir_x(spd,dir)
+		y += lengthdir_y(spd,dir)
+	}
 
 	if collision_circle(x,y,1000,oPlayer,0,0)
 	{
@@ -76,7 +119,7 @@ if mode = "chase"
 	
 	if !collision_circle(x,y,1200,oPlayer,0,0)
 		{
-			mode = "patrol"
+			mode = "wander"
 		}
 
 	if collision_circle(x,y,500,oPlayer,0,0)

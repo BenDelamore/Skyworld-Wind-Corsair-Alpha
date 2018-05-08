@@ -15,6 +15,8 @@ if hp >= 0
 	draw_text(x,y-50,hp)
 }
 
+draw_text(x,y-80,mode)
+
 /*
 if hp < 0
 {

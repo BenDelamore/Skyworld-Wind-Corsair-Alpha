@@ -67,6 +67,10 @@ else
 	mode = "wander"
 }
 
+counter = 0
+
+move_wander = 0
+
 //x = instance_position()
 
 start_x = x
