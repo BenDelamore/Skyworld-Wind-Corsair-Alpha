@@ -18,7 +18,7 @@ snowflake = part_type_create()
 camera = camera_get_active()
 
 	x1 = 0
-	x2 = room_width+300
+	x2 = room_width+700
 	y1 = -10
 	y2 = 0
 

@@ -3,6 +3,7 @@
 #region //Path Following
 if mode = "patrol"
 {
+	spd = 2 + random(1)
 	if (point_distance(x,y,oPlayer.x,oPlayer.y) < 1000)
 	{
 		path_end();
@@ -22,7 +23,7 @@ if mode = "patrol"
 }
 #endregion
 
-#region
+#region //Idle
 if mode = "idle"
 {
 	counter += 1
@@ -43,6 +44,16 @@ if mode = "idle"
 			break;
 		}
 	}
+	
+	if (point_distance(x,y,oPlayer.x,oPlayer.y) < 1000)
+	{
+		mode = "chase"
+	}
+	
+	if set_path != noone
+	{
+		mode = "patrol"
+	}
 }
 #endregion
 
@@ -50,6 +61,7 @@ if mode = "idle"
 if mode = "wander"
 {
 	counter += 1
+	spd = 1 + random(2)
 
 	//transition triggers
 	if (counter >= room_speed * 3)
@@ -73,7 +85,7 @@ if mode = "wander"
 		y += lengthdir_y(spd,dir)
 	}
 
-	if collision_circle(x,y,1000,oPlayer,0,0)
+	if (point_distance(x,y,oPlayer.x,oPlayer.y) < 1000)
 	{
 		mode = "chase"
 	}
@@ -88,37 +100,79 @@ if mode = "wander"
 #region //Chase Player
 if mode = "chase"
 {
-	speed = 0
+	spd = 3 + random(2)
+	dir = point_direction(x,y,oPlayer.x,oPlayer.y)
 	
 	//default settings  = mp_potential_settings(30,10,3,1)
 	//mp_linear_step(oPlayer.x,oPlayer.y,6,0)
 	mp_potential_step(oPlayer.x,oPlayer.y,spd,0)
 	
-	if !collision_circle(x,y,1200,oPlayer,0,0)
+	if !collision_circle(x,y,1000,oPlayer,0,0)
 		{
 			mode = "wander"
 		}
 
-	if collision_circle(x,y,500,oPlayer,0,0)
+	if collision_circle(x,y,600,oPlayer,0,0)
 	{
 		mode = "shoot"
 	}
 }
 #endregion
 
-#region //shooting
+#region //shooting/charge!
 if mode = "shoot"
 {
-	dir  = point_direction(x,y,oPlayer.x,oPlayer.y)
-//	dir = point_direction(x,y,random_range(oPlayer.x + 5,oPlayer.x - 5),random_range(oPlayer.y - 5,oPlayer.y + 5))
+	charge_timer += 1
+
+//Set Direction
+	if spd <= 0.2 //charge_timer >= 45 && charge_timer <= 55	
+	{
+		dir = point_direction(x,y,oPlayer.x,oPlayer.y)
+	}
 	
+//Charge!
+	if charge_timer >= 60
+	{
+		charge = 1
+		//charge_timer = 0
+	}
+
+//Accelerate
+	if charge = 1
+	{
+		spd += 0.2
+		//mp_potential_step(oPlayer.x,oPlayer.y,spd,0)
+	}
+
+//Charging for too long - reset
+	if charge_timer >= 180
+	{
+		charge = 0	
+		charge_timer = 0
+	}
+	
+//Decellerating
+	if charge = 0
+	{
+	//	if spd >= 0
+	//	{
+			spd = lerp(spd,0,0.1)
+	//	}
+	}
+
+//Apply Movement
+	x += lengthdir_x(spd,dir)
+	y += lengthdir_y(spd,dir)
+
+	#region Shooting code from other enemies
+	/*
 	if bullet_timer >= 1
 	{
-/*
-		bullet = instance_create_layer(x,y,"projectiles_layer",oEnemy_projectile)
-		bullet.direction = dir
-		bullet.speed = 15
-*/
+
+		//bullet = instance_create_layer(x,y,"projectiles_layer",oEnemy_projectile)
+		//bullet.direction = dir
+		//bullet.speed = 15
+
 		with (instance_create_layer(x - 15, y - 10, "projectiles_layer", oEnemy_projectile))
 		{
 			speed = 12;
@@ -129,15 +183,20 @@ if mode = "shoot"
 	
 	if bullet_timer < 1
 	{
-		bullet_timer += 0.02
+		bullet_timer += 0.025
 	}
+	*/
+	#endregion
 	
-	if !collision_circle(x,y,500,oPlayer,0,0)
+	if !collision_circle(x,y,600,oPlayer,0,0)
 	{
 		mode = "chase"
 	}
 }
 #endregion
+
+spd = clamp(spd,0,7)
+
 /*
 //Avoiding other enemy objects
 if collision_circle(x,y,100,oEnemy,0,1)

@@ -1287,6 +1287,22 @@
             }
         },
         {
+            "Key": "ea19ecbc-8be5-4f4b-844a-9105c2bb27f6",
+            "Value": {
+                "id": "447bc6d6-a909-4919-93a8-2a01a111f0f9",
+                "resourcePath": "sprites\\sEnemyShipSmall\\sEnemyShipSmall.yy",
+                "resourceType": "GMSprite"
+            }
+        },
+        {
+            "Key": "ed046d2b-960b-45fc-aebc-468327439bdf",
+            "Value": {
+                "id": "14d35103-6f58-44a5-a2da-2babdd0f9f9a",
+                "resourcePath": "objects\\oEnemy_ship_small_1\\oEnemy_ship_small_1.yy",
+                "resourceType": "GMObject"
+            }
+        },
+        {
             "Key": "edaf6fb3-857e-4147-b262-0de2a23e08b0",
             "Value": {
                 "id": "de3bffad-e094-4b63-8cb5-c6db3edbc501",

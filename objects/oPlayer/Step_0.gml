@@ -96,7 +96,7 @@ if (hspd != 0)
 	{
 		if hspd > 2 || hspd < -2
 		{
-			oPlayer.hp -= abs(hspd^3)
+			oPlayer.hp -= abs((hspd*2)^3)
 		}
 	    
 		while (!place_meeting(x+sign(hspd), y, oSolid)){
@@ -117,7 +117,7 @@ if (vspd != 0)
 	{
 		if vspd > 2 || vspd < -2
 		{
-			oPlayer.hp -= abs(vspd^3)
+			oPlayer.hp -= abs((vspd*2)^3)
 		}
 		
 	    while (!place_meeting(x, y+sign(vspd), oSolid)){
@@ -139,6 +139,8 @@ if (inst != noone && keyboard_check_released(vk_enter))
 		if (!do_transition)
 		{
 			spawn_room = inst.target_room
+			//spawnX = inst.spawnX
+			//spawnY = inst.spawnY
 			do_transition = true
 		}
 	}

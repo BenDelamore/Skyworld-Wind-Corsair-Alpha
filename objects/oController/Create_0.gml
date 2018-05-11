@@ -25,6 +25,7 @@ spawn_room = -1;
 
 do_transition = false
 
+other_transition = false
 
 //easings variables
 t = 0

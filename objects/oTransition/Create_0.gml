@@ -9,3 +9,6 @@ text = "Press 'Enter' to continue"
 
 spawnX = 0
 spawnY = room_width/2
+
+button = false
+button_pressed = false

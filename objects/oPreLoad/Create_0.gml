@@ -4,6 +4,7 @@
 global.player_health = 100
 
 global.playerpoints = 50
+global.coins_collected = 0
 
 global.maxhspd = 4.5
 global.maxvspd = 4.5
